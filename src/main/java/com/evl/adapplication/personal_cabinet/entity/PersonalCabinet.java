@@ -1,4 +1,4 @@
-package com.evl.adversising.personal_cabinet.entity;
+package com.evl.adapplication.personal_cabinet.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

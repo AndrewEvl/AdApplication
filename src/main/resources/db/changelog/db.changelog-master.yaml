@@ -1,0 +1,6 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: a.evlash
+  - include:
+      file: db/changelog/scripts/init_script.sql

@@ -1,10 +1,11 @@
-package com.evl.adversising.personal_cabinet.controller;
+package com.evl.adapplication.personal_cabinet.controller;
 
-import com.evl.adversising.personal_cabinet.controller.dto.UserCreatingRequest;
-import com.evl.adversising.personal_cabinet.controller.dto.UserLoginRequest;
-import com.evl.adversising.personal_cabinet.controller.dto.UserResponse;
-import com.evl.adversising.personal_cabinet.entity.PersonalCabinet;
-import com.evl.adversising.personal_cabinet.service.PersonalCabinetService;
+
+import com.evl.adapplication.personal_cabinet.controller.dto.UserCreatingRequest;
+import com.evl.adapplication.personal_cabinet.controller.dto.UserLoginRequest;
+import com.evl.adapplication.personal_cabinet.controller.dto.UserResponse;
+import com.evl.adapplication.personal_cabinet.entity.PersonalCabinet;
+import com.evl.adapplication.personal_cabinet.service.PersonalCabinetService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
-package com.evl.adversising.personal_cabinet.controller.dto;
+package com.evl.adapplication.personal_cabinet.controller.dto;
 
-import com.evl.adversising.personal_cabinet.entity.PersonalCabinet;
+import com.evl.adapplication.personal_cabinet.entity.PersonalCabinet;
 import lombok.Builder;
 import lombok.Data;
 

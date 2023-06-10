@@ -1,4 +1,4 @@
-package com.evl.adversising.personal_cabinet.controller.dto;
+package com.evl.adapplication.personal_cabinet.controller.dto;
 
 import lombok.Data;
 
