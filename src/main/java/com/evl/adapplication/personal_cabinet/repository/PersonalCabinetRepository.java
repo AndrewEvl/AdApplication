@@ -14,4 +14,6 @@ public interface PersonalCabinetRepository extends JpaRepository<PersonalCabinet
                                                       @Param("password") String password);
 
     Optional<PersonalCabinet> findByEmail(String login);
+
+    Optional<PersonalCabinet> findByIdAndLogin (@Param("id") Long id, @Param("login") boolean isLogin);
 }

@@ -1,6 +1,7 @@
 package com.evl.adapplication.personal_cabinet.controller;
 
 
+import com.evl.adapplication.personal_cabinet.controller.dto.CabinetReplenishRequest;
 import com.evl.adapplication.personal_cabinet.controller.dto.UserCreatingRequest;
 import com.evl.adapplication.personal_cabinet.controller.dto.UserLoginRequest;
 import com.evl.adapplication.personal_cabinet.controller.dto.UserResponse;
@@ -33,8 +34,18 @@ public class PersonalCabinetController {
     }
 
     @PostMapping("/registration")
-    public ResponseEntity creatingPersonalCabinet (@RequestBody UserCreatingRequest rq){
+    public ResponseEntity<?> creatingPersonalCabinet (@RequestBody UserCreatingRequest rq){
         userService.registration(rq);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/replenish")
+    public ResponseEntity<?> replenishCabinet(@RequestBody CabinetReplenishRequest rq){
+        try {
+            UserResponse resp = userService.replenish(rq.getId(), rq.getSum());
+            return ResponseEntity.ok(resp);
+        } catch (EntityNotFoundException e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 }

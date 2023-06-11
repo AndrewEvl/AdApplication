@@ -3,6 +3,7 @@ package com.evl.adapplication.personal_cabinet.service;
 
 import com.evl.adapplication.personal_cabinet.controller.dto.UserCreatingRequest;
 import com.evl.adapplication.personal_cabinet.controller.dto.UserLoginRequest;
+import com.evl.adapplication.personal_cabinet.controller.dto.UserResponse;
 import com.evl.adapplication.personal_cabinet.entity.PersonalCabinet;
 import com.evl.adapplication.personal_cabinet.repository.PersonalCabinetRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -35,5 +36,18 @@ public class PersonalCabinetService {
 
     public Optional<PersonalCabinet> findByLogin(String login) {
         return repository.findByEmail(login);
+    }
+
+    public UserResponse replenish(Long id, Double sum) {
+        Optional<PersonalCabinet> cabinetOptional = repository.findByIdAndLogin(id, true);
+        if(cabinetOptional.isPresent()){
+            PersonalCabinet personalCabinet = cabinetOptional.get();
+            double newBalance = personalCabinet.getBalance() + sum;
+            personalCabinet.setBalance(newBalance);
+            repository.save(personalCabinet);
+            return UserResponse.converter(personalCabinet);
+        } else {
+            throw new EntityNotFoundException();
+        }
     }
 }

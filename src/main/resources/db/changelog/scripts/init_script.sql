@@ -11,3 +11,18 @@ CREATE TABLE personal_cabinet
     is_login     BIT(1)                NULL,
     CONSTRAINT pk_personalcabinet PRIMARY KEY (id)
 );
+
+CREATE TABLE ad_account
+(
+    id           BIGINT AUTO_INCREMENT NOT NULL,
+    service_type INT                   NULL,
+    name         VARCHAR(255)          NULL,
+    theme        VARCHAR(255)          NULL,
+    site         VARCHAR(255)          NULL,
+    balance      DOUBLE                NULL,
+    cabinet_id   BIGINT                NULL,
+    CONSTRAINT pk_adaccount PRIMARY KEY (id)
+);
+
+ALTER TABLE ad_account
+    ADD CONSTRAINT FK_ADACCOUNT_ON_CABINET FOREIGN KEY (cabinet_id) REFERENCES personal_cabinet (id);

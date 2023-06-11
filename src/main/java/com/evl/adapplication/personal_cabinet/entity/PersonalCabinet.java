@@ -1,8 +1,11 @@
 package com.evl.adapplication.personal_cabinet.entity;
 
+import com.evl.adapplication.ad_account.entity.AdAccount;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.relational.core.mapping.Table;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -40,4 +43,7 @@ public class PersonalCabinet {
 
     @Column(name = "is_login")
     private boolean isLogin;
+
+    @OneToMany(mappedBy = "cabinet")
+    private Set<AdAccount> adAccountSet;
 }
