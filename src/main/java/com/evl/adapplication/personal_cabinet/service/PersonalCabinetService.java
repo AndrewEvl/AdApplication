@@ -30,12 +30,20 @@ public class PersonalCabinetService {
         return personalCabinet;
     }
 
+    public PersonalCabinet findById (Long id){
+        return repository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
+
     public void registration (UserCreatingRequest rq){
         repository.save(UserCreatingRequest.convector(rq));
     }
 
     public Optional<PersonalCabinet> findByLogin(String login) {
         return repository.findByEmail(login);
+    }
+
+    public void save (PersonalCabinet personalCabinet){
+        repository.save(personalCabinet);
     }
 
     public UserResponse replenish(Long id, Double sum) {

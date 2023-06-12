@@ -42,7 +42,7 @@ public class PersonalCabinetController {
     @PostMapping("/replenish")
     public ResponseEntity<?> replenishCabinet(@RequestBody CabinetReplenishRequest rq){
         try {
-            UserResponse resp = userService.replenish(rq.getId(), rq.getSum());
+            UserResponse resp = userService.replenish(rq.getAdAccountId(), rq.getSum());
             return ResponseEntity.ok(resp);
         } catch (EntityNotFoundException e){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

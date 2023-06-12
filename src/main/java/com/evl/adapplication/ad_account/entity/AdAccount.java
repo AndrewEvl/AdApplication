@@ -1,7 +1,6 @@
 package com.evl.adapplication.ad_account.entity;
 
 import com.evl.adapplication.personal_cabinet.entity.PersonalCabinet;
-import com.evl.adapplication.personal_cabinet.entity.enums.ServiceType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.relational.core.mapping.Table;
@@ -20,8 +19,7 @@ public class AdAccount {
     private Long id;
 
     @Column(name = "service_type")
-    @Enumerated(EnumType.ORDINAL)
-    private ServiceType serviceType;
+    private String serviceType;
 
     @Column(name = "name")
     private String name;

@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class CabinetReplenishRequest {
 
-    private Long id;
+    private Long cabinetId;
+    private Long adAccountId;
     private Double sum;
 }
