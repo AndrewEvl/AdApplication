@@ -1,6 +1,9 @@
 package com.evl.adapplication.personal_cabinet.service;
 
 
+import com.evl.adapplication.history.entity.History;
+import com.evl.adapplication.history.entity.enums.OperationType;
+import com.evl.adapplication.history.service.HistoryService;
 import com.evl.adapplication.personal_cabinet.controller.dto.UserCreatingRequest;
 import com.evl.adapplication.personal_cabinet.controller.dto.UserLoginRequest;
 import com.evl.adapplication.personal_cabinet.controller.dto.UserResponse;
@@ -17,6 +20,7 @@ import java.util.Optional;
 public class PersonalCabinetService {
 
     private final PersonalCabinetRepository repository;
+    private final HistoryService historyService;
 
     public PersonalCabinet loginUser (UserLoginRequest rq){
         PersonalCabinet personalCabinet = repository.findByEmailAndPassword(rq.getEmail(), rq.getPassword())
@@ -28,6 +32,12 @@ public class PersonalCabinetService {
             throw new EntityNotFoundException();
         }
         return personalCabinet;
+    }
+
+    public void logout (Long id){
+        PersonalCabinet cabinet = findById(id);
+        cabinet.setLogin(false);
+        save(cabinet);
     }
 
     public PersonalCabinet findById (Long id){
@@ -53,6 +63,7 @@ public class PersonalCabinetService {
             double newBalance = personalCabinet.getBalance() + sum;
             personalCabinet.setBalance(newBalance);
             repository.save(personalCabinet);
+            historyService.save(new History(OperationType.CABINET, sum, personalCabinet));
             return UserResponse.converter(personalCabinet);
         } else {
             throw new EntityNotFoundException();

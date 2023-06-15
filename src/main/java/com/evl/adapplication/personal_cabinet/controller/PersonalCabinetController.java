@@ -11,10 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -24,27 +21,33 @@ public class PersonalCabinetController {
     private PersonalCabinetService userService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login (@RequestBody UserLoginRequest rq){
+    public ResponseEntity<?> login(@RequestBody UserLoginRequest rq) {
         try {
             PersonalCabinet personalCabinet = userService.loginUser(rq);
             return ResponseEntity.ok(UserResponse.converter(personalCabinet));
-        } catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
+    @PostMapping("/logout/{id}")
+    public ResponseEntity<?> logout(@PathVariable(name = "id") Long id) {
+        userService.logout(id);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/registration")
-    public ResponseEntity<?> creatingPersonalCabinet (@RequestBody UserCreatingRequest rq){
+    public ResponseEntity<?> creatingPersonalCabinet(@RequestBody UserCreatingRequest rq) {
         userService.registration(rq);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/replenish")
-    public ResponseEntity<?> replenishCabinet(@RequestBody CabinetReplenishRequest rq){
+    public ResponseEntity<?> replenishCabinet(@RequestBody CabinetReplenishRequest rq) {
         try {
             UserResponse resp = userService.replenish(rq.getAdAccountId(), rq.getSum());
             return ResponseEntity.ok(resp);
-        } catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }

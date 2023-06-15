@@ -26,3 +26,20 @@ CREATE TABLE ad_account
 
 ALTER TABLE ad_account
     ADD CONSTRAINT FK_ADACCOUNT_ON_CABINET FOREIGN KEY (cabinet_id) REFERENCES personal_cabinet (id);
+
+    CREATE TABLE history
+    (
+        id         BIGINT AUTO_INCREMENT NOT NULL,
+        date       datetime              NULL,
+        type       INT                   NULL,
+        sum        DOUBLE                NULL,
+        cabinet_id BIGINT                NULL,
+        account_id BIGINT                NULL,
+        CONSTRAINT pk_history PRIMARY KEY (id)
+    );
+
+    ALTER TABLE history
+        ADD CONSTRAINT FK_HISTORY_ON_ACCOUNT FOREIGN KEY (account_id) REFERENCES ad_account (id);
+
+    ALTER TABLE history
+        ADD CONSTRAINT FK_HISTORY_ON_CABINET FOREIGN KEY (cabinet_id) REFERENCES personal_cabinet (id);
