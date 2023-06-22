@@ -11,8 +11,9 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,16 @@ public class PersonalCabinetController {
     public ResponseEntity<?> login(@RequestBody UserLoginRequest rq) {
         try {
             PersonalCabinet personalCabinet = userService.loginUser(rq);
+            return ResponseEntity.ok(UserResponse.converter(personalCabinet));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
+    @GetMapping("/login/{id}")
+    public ResponseEntity<?> loginId(@PathVariable(value = "id")Long id) {
+        try {
+            PersonalCabinet personalCabinet = userService.findById(id);
             return ResponseEntity.ok(UserResponse.converter(personalCabinet));
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
