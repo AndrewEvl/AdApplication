@@ -13,6 +13,8 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class AdAccountService {
@@ -35,5 +37,9 @@ public class AdAccountService {
     public void save (CreatingAdAccountDto rq){
         PersonalCabinet personalCabinet = personalCabinetService.findById(rq.getCabinetId());
         repository.save(CreatingAdAccountDto.converter(rq, personalCabinet));
+    }
+
+    public List<AdAccount> getAllAccountToResponse (Long cabinetId){
+        return repository.findAllByCabinetId(cabinetId);
     }
 }

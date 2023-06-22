@@ -20,6 +20,7 @@ public class UserCreatingRequest {
                 .email(rq.getEmail())
                 .password(rq.getPassword())
                 .unp(rq.getUnp())
+                .balance(0D)
                 .address(rq.getAddress())
                 .phoneNumber(rq.getPhoneNumber())
                 .bik(rq.getBik())

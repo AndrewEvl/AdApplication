@@ -9,8 +9,26 @@ CREATE TABLE personal_cabinet
     bik          VARCHAR(255)          NULL,
     balance      DOUBLE                NULL,
     is_login     BIT(1)                NULL,
-    CONSTRAINT pk_personalcabinet PRIMARY KEY (id)
+    CONSTRAINT pk_personal_cabinet PRIMARY KEY (id)
 );
+
+CREATE TABLE currency (
+id           BIGINT AUTO_INCREMENT NOT NULL,
+code varchar(10) not null
+);
+
+CREATE TABLE balance_cabinet (
+    id           BIGINT AUTO_INCREMENT NOT NULL,
+    balance     DOUBLE not null,
+    currency_id bigint not null,
+    cabinet_id bigint not null
+);
+
+ALTER TABLE balance_cabinet
+    ADD CONSTRAINT FK_ADACCOUNT_ON_Currency FOREIGN KEY (currency_id) REFERENCES currency (id);
+
+ALTER TABLE balance_cabinet
+    ADD CONSTRAINT FK_ADACCOUNT_ON_CABINET FOREIGN KEY (cabinet_id) REFERENCES personal_cabinet (id);
 
 CREATE TABLE ad_account
 (
@@ -23,6 +41,19 @@ CREATE TABLE ad_account
     cabinet_id   BIGINT                NULL,
     CONSTRAINT pk_adaccount PRIMARY KEY (id)
 );
+
+CREATE TABLE balance_account (
+    id           BIGINT AUTO_INCREMENT NOT NULL,
+    balance     DOUBLE not null,
+    currency_id bigint not null,
+    account_id bigint not null
+)
+
+ALTER TABLE balance_account
+    ADD CONSTRAINT FK_ADACCOUNT_ON_CABINET FOREIGN KEY (account_id) REFERENCES ad_account (id);
+
+ALTER TABLE balance_account
+    ADD CONSTRAINT FK_ADACCOUNT_ON_Currency FOREIGN KEY (currency_id) REFERENCES currency (id);
 
 ALTER TABLE ad_account
     ADD CONSTRAINT FK_ADACCOUNT_ON_CABINET FOREIGN KEY (cabinet_id) REFERENCES personal_cabinet (id);
